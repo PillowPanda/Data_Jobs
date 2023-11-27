@@ -14,3 +14,20 @@ salary_stats_df.columns = ['Job_Title', 'Mean_Salary', 'Num_People']
 
 # Display the DataFrame
 salary_stats_df
+
+
+
+# Group by 'Job_Title' and calculate the mean salary and count for each job title
+salary_stats_df = salaries.groupby('job_title')['salary_in_usd'].agg(['mean', 'count']).reset_index()
+
+# Rename the columns
+salary_stats_df.columns = ['Job_Title', 'Mean_Salary', 'Job_Count']
+
+# Sort the DataFrame by 'Job_Count' in descending order
+mean_salary_df = salary_stats_df.sort_values(by='Job_Count', ascending=False)
+
+# Reset the index and drop the default index column
+mean_salary_df = mean_salary_df.reset_index(drop=True)
+
+# Display the sorted DataFrame
+mean_salary_df.head(10)
