@@ -4,16 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 
-salaries = pd.read_csv('salaries.csv')
-
-# Group by 'Job_Title' and calculate the mean salary and count for each job title
-salary_stats_df = salaries.groupby('job_title')['salary_in_usd'].agg(['mean', 'count']).reset_index()
-
-# Rename the columns
-salary_stats_df.columns = ['Job_Title', 'Mean_Salary', 'Num_People']
-
-# Display the DataFrame
-salary_stats_df
 
 
 
