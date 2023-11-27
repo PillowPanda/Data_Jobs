@@ -10,7 +10,7 @@ salaries = pd.read_csv('salaries.csv')
 salary_stats_df = salaries.groupby('job_title')['salary_in_usd'].agg(['mean', 'count']).reset_index()
 
 # Rename the columns
-salary_stats_df.columns = ['Job_Title', 'Mean_Salary', 'Num_People']
+salary_stats_df.columns = ['Job_Title', 'Mean_Salary', 'Job_Count']
 
 # Display the DataFrame
 salary_stats_df
