@@ -17,7 +17,7 @@ salary_stats_df.columns = ['Job Title', 'Mean Salary', 'Job Count']
 mean_salary_df = salary_stats_df.sort_values(by='Job Count', ascending=False)
 
 # Round the salary to two decimals
-mean_salary_df['Mean Salary'] = mean_salary_df['Mean Salary'].round(2)
+mean_salary_df['Mean Salary'] = mean_salary_df['Mean Salary'].round(-3)
 
 index_to_move = 0  
 row_to_move = mean_salary_df.iloc[[index_to_move]]
