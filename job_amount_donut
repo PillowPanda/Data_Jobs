@@ -11,10 +11,13 @@ import matplotlib.lines as mlines
 salary_stats_df = salaries.groupby('job_title')['salary_in_usd'].agg(['mean', 'count']).reset_index()
 
 # Rename the columns
-salary_stats_df.columns = ['Job_Title', 'Mean_Salary', 'Job_Count']
+salary_stats_df.columns = ['Job Title', 'Mean Salary', 'Job Count']
 
 # Sort the DataFrame by 'Job_Count' in descending order
-mean_salary_df = salary_stats_df.sort_values(by='Job_Count', ascending=False)
+mean_salary_df = salary_stats_df.sort_values(by='Job Count', ascending=False)
+
+# Round the salary to two decimals
+mean_salary_df['Mean Salary'] = mean_salary_df['Mean Salary'].round(2)
 
 index_to_move = 0  
 row_to_move = mean_salary_df.iloc[[index_to_move]]
@@ -38,10 +41,12 @@ colormap = {'Data Engineer':'maroon',
             'Machine Learning Engineer':'purple',
             'Other (includes 89 job titles)':'lightgrey'}
 fig = px.pie(mean_salary_df, values = mean_salary_df['Job Count'], names = mean_salary_df['Job Title'], hole = 0.5, 
-             color = mean_salary_df['Job Title'], color_discrete_map = colormap, hover_data = ['Job Title', 'Mean Salary'], 
+             color = mean_salary_df['Job Title'], color_discrete_map = colormap, hover_data = ['Mean Salary'], 
              #labels={'Job Title':'Job Title', 'count':'Salary'}, 
-             custom_data = ['Job Title'], width = 600, height = 600, 
-             category_orders = {'Job Title':['Data Engineer', 'Data Scientist', 'Data Analyst', 'Machine Learning Engineer', 'Other']})
+             custom_data = 'Mean Salary', width = 600, height = 600,
+             category_orders = {'Job Title':['Data Engineer', 'Data Scientist', 'Data Analyst', 'Machine Learning Engineer', 'Other']},
+             )
+#value = mean_salary_df['Job Count'], label = mean_salary_df['Job Title'], customdata=mean_salary_df['Mean Salary']
 
 # Increase the size of label text
 fig.update_traces(textfont_size=16)  
@@ -52,9 +57,11 @@ fig.update_traces(hoverinfo='label+percent', hoverlabel=dict(font_size=16))
 centertext = "Data Science <br> Positions by <br> Job Title"
 fig.update_layout(
     annotations=[dict(text=centertext, x=0.5, y=0.5, font_size=18, showarrow=False)])
-fig.update_traces(text = mean_salary_df['Job Title'], textposition='outside')
-fig.update_layout(showlegend = False)
 
+# Update Traces: used source https://stackoverflow.com/questions/60158618/plotly-how-to-add-elements-to-hover-data-using-plotly-express-piechart
+fig.update_traces(text = mean_salary_df['Job Title'], textposition='outside',
+                 hovertemplate = "Job Title: %{label} <br>Job Count: %{value} </br>Mean Salary: $%{customdata} Annual Salary")
+fig.update_layout(showlegend = False)
 #fig.write_image("donut.png")
 #fig.write_html("donut.html")
 fig.show()
