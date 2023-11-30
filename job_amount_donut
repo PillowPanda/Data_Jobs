@@ -3,9 +3,14 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
+import plotly.express as px
+!pip install -U kaleido
 
 
-
+salaries = pd.read_csv('salaries.csv')
+not_other = ['Data Engineer', 'Data Scientist', 'Data Analyst', 'Machine Learning Engineer']
+salaries['job_title'] = salaries['job_title'].apply(lambda x: 'Other (includes 119 job titles)' if x not in not_other else x)
+salaries
 
 # Group by 'Job_Title' and calculate the mean salary and count for each job title
 salary_stats_df = salaries.groupby('job_title')['salary_in_usd'].agg(['mean', 'count']).reset_index()
@@ -35,11 +40,11 @@ mean_salary_df = mean_salary_df.reset_index(drop=True)
 mean_salary_df.head(10)
 
 
-colormap = {'Data Engineer':'maroon',
-            'Data Scientist':'yellow',
-            'Data Analyst':'deepskyblue',
-            'Machine Learning Engineer':'purple',
-            'Other (includes 89 job titles)':'lightgrey'}
+colormap = {'Data Engineer':'#fb8072',
+            'Data Scientist':'#bebada',
+            'Data Analyst':'#ffed6f',
+            'Machine Learning Engineer':'#8dd3c7',
+            'Other (includes 119 job titles)':'lightgrey'}
 fig = px.pie(mean_salary_df, values = mean_salary_df['Job Count'], names = mean_salary_df['Job Title'], hole = 0.5, 
              color = mean_salary_df['Job Title'], color_discrete_map = colormap, hover_data = ['Mean Salary'], 
              #labels={'Job Title':'Job Title', 'count':'Salary'}, 
@@ -54,7 +59,7 @@ fig.update_traces(textfont_size=16)
 # Increase the font size of hover labels
 fig.update_traces(hoverinfo='label+percent', hoverlabel=dict(font_size=16))
 
-centertext = "Data Science <br> Positions by <br> Job Title"
+centertext = "Most Common <br> Data Science <br> Positions"
 fig.update_layout(
     annotations=[dict(text=centertext, x=0.5, y=0.5, font_size=18, showarrow=False)])
 
@@ -62,6 +67,6 @@ fig.update_layout(
 fig.update_traces(text = mean_salary_df['Job Title'], textposition='outside',
                  hovertemplate = "Job Title: %{label} <br>Job Count: %{value} </br>Mean Salary: $%{customdata} Annual Salary")
 fig.update_layout(showlegend = False)
-#fig.write_image("donut.png")
-#fig.write_html("donut.html")
+#fig.write_image("datadonut.png")
+#fig.write_html("datadonut.html")
 fig.show()
