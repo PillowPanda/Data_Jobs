@@ -1,0 +1,27 @@
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Define the order of experience levels
+experience_order = ['Entry', 'Mid', 'Senior', 'Executive']
+
+# Convert 'experience_level' to a categorical variable with the desired order
+salaries['experience_level'] = pd.Categorical(salaries['experience_desc'], categories=experience_order, ordered=True)
+
+# Set the style of seaborn for better aesthetics (optional)
+sns.set(style="whitegrid")
+
+# Create a boxplot for each experience level
+plt.figure(figsize=(12, 8))
+sns.boxplot(x='experience_level', y='salary_in_usd', data=salaries, palette="Set3")
+
+# Customize the plot
+plt.title("Salary Distribution by Experience Level", fontsize=16)
+plt.xlabel("")
+plt.ylabel("")
+
+# Format y-axis labels as 100k, 200k, etc.
+plt.gca().yaxis.set_major_formatter(ticker.StrMethodFormatter('${x:,.0f}'))
+
+
+# Show the plot
+plt.show()
