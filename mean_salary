@@ -3,14 +3,46 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
+import plotly.express as px
+!pip install -U kaleido
 
-salaries = pd.read_csv('salaries.csv')
+salaries = pd.read_csv('Data/salaries.csv')
 
 # Group by 'Job_Title' and calculate the mean salary and count for each job title
 salary_stats_df = salaries.groupby('job_title')['salary_in_usd'].agg(['mean', 'count']).reset_index()
 
 # Rename the columns
-salary_stats_df.columns = ['Job_Title', 'Mean_Salary', 'Job_Count']
+salary_stats_df.columns = ['Job Title', 'Mean Salary (USD)', 'Job Count']
+
+salary_over_ten = salary_stats_df[salary_stats_df['Job Count'] >= 10] #.sort_values(by='Mean_Salary', ascending=False)
+salary_over_ten_graph = salary_over_ten[salary_over_ten['Mean Salary (USD)'] >= 190000]
+
 
 # Display the DataFrame
-salary_stats_df
+salary_over_ten_graph.loc[len(salary_over_ten_graph.index)] = ['Average of All Data Science Jobs', 149409.25, 8816]
+salary_over_ten_graph['Mean Salary (USD)'] = salary_over_ten_graph['Mean Salary (USD)'].round(-3)
+salary_over_ten_graph = salary_over_ten_graph.sort_values(by='Mean Salary (USD)', ascending=False)
+salary_over_ten_graph.at[91, 'Job Title'] = 'Machine Learning Engineer'
+
+salary_over_ten_graph
+
+maroon = '#fb8072'
+darkgrey = '#A9A9A9'
+
+fig = px.bar(salary_over_ten_graph, x="Mean Salary (USD)", y="Job Title", orientation='h',
+             hover_data=["Job Count"],
+             height=400,
+             title='The 8 Highest Paying Jobs in Data Science', color = 'Job Title',
+             color_discrete_map = {'AI Architect': maroon, 'Director of Data Science': maroon,
+                                   'Head of Data': maroon, 'Data Infrastructure Engineer': maroon,	
+                                    'Data Science Manager': maroon,	'Principal Data Scientist': maroon,	
+                                   'Machine Learning Engineer': maroon, 'Applied Scientist': maroon, 
+                                    'Average of All Data Science Jobs': darkgrey})
+fig.update_layout(showlegend=False,  title={'text': 'Where are the Big Bucks?',
+                                           'x': 0.5, 'y': 0.83, 'xanchor': 'center', 'yanchor': 'top'},
+                  font=dict(size=16, color='#555555', family='Arial'), plot_bgcolor = 'white')
+fig.update_yaxes(title='')
+
+#fig.write_image("salarybar.png")
+#fig.write_html("salarybar.html")
+fig.show()
