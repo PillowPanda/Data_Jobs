@@ -36,9 +36,6 @@ def map_remote_status(remote_ratio):
 # Apply the function to create the new 'remote_value' column
 salaries['remote_status'] = salaries['remote_ratio'].apply(map_remote_status)
 
-import seaborn as sns
-import matplotlib.pyplot as plt
-
 # Define the desired order for the y-axis
 desired_order = ['On-site', 'Hybrid', 'Remote']
 
@@ -48,9 +45,9 @@ salaries_table = salaries.groupby(['remote_status', 'size_desc']).size().unstack
 # Reorder the rows in the DataFrame based on the desired order
 salaries_table = salaries_table.reindex(desired_order, axis=0)
 
-# Create a heatmap
+# Create a heatmap with a purple color scheme
 plt.figure(figsize=(8, 6))
-sns.heatmap(salaries_table, annot=True, cmap='Blues', fmt='g', cbar=True,
+sns.heatmap(salaries_table, annot=True, cmap='Purples', fmt='g', cbar=True,
             xticklabels=salaries_table.columns[::-1], yticklabels=desired_order,
             cbar_kws={'label': 'Count'})  # You can customize the colorbar label here
 
@@ -63,3 +60,4 @@ plt.xticks(fontsize=14)
 plt.yticks(fontsize=14)
 
 plt.show()
+
