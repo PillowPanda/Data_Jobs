@@ -1,0 +1,65 @@
+import pandas as pd
+import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
+
+salaries = pd.read_csv('salaries.csv')
+
+salaries['remote_str'] = salaries['remote_ratio'].astype(str)
+ 
+# Define a function to map company sizes to descriptions
+def map_size_desc(company_size):
+    if company_size == 'S':
+        return 'S (<50)'
+    elif company_size == 'M':
+        return 'M (50-250)'
+    elif company_size == 'L':
+        return 'L (>250)'
+    else:
+        return company_size  # Return the original value if it's not 'S', 'M', or 'L'
+
+# Apply the function to create the new 'size_desc' column
+salaries['size_desc'] = salaries['company_size'].apply(map_size_desc)
+
+# Define a function to map remote_ratio values to descriptions
+def map_remote_status(remote_ratio):
+    if remote_ratio == 0:
+        return 'On-site'
+    elif remote_ratio == 50:
+        return 'Hybrid'
+    elif remote_ratio == 100:
+        return 'Remote'
+    else:
+        return 'Unknown'  # You can adjust this for any other values in 'remote_ratio'
+
+# Apply the function to create the new 'remote_value' column
+salaries['remote_status'] = salaries['remote_ratio'].apply(map_remote_status)
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Define the desired order for the y-axis
+desired_order = ['On-site', 'Hybrid', 'Remote']
+
+# Group by 'remote_ratio' and 'company_size' and calculate the count of jobs in each group
+salaries_table = salaries.groupby(['remote_status', 'size_desc']).size().unstack(fill_value=0)
+
+# Reorder the rows in the DataFrame based on the desired order
+salaries_table = salaries_table.reindex(desired_order, axis=0)
+
+# Create a heatmap
+plt.figure(figsize=(8, 6))
+sns.heatmap(salaries_table, annot=True, cmap='Blues', fmt='g', cbar=True,
+            xticklabels=salaries_table.columns[::-1], yticklabels=desired_order,
+            cbar_kws={'label': 'Count'})  # You can customize the colorbar label here
+
+plt.title("Company Size by Number of Employees vs Work Modality", fontsize=16)
+plt.xlabel(" ")
+plt.ylabel(" ")
+
+# Increase the size of the axis labels
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+
+plt.show()
