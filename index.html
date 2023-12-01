@@ -85,11 +85,19 @@
                   04
                 </li>
               </ol>
+
+              <style>
+                .img-box img {
+                  width: 300px; 
+                  height: 200px; 
+                  object-fit: cover; /* Maintain aspect ratio and cover the container */
+                }
+              </style>
+
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <div class="img-box b-1">
-                    <img src="images/coding.png" alt="" />
-                  </div>
+                    <img src="images/coding.png" width="10" height="200" alt="Coding">                  </div>
                 </div>
                 <div class="carousel-item">
                   <div class="img-box b-2">
@@ -103,7 +111,7 @@
                 </div>
                 <div class="carousel-item">
                   <div class="img-box b-4">
-                    <img src="images/profits.png" alt="" />
+                    <img src="images/profits.png" width="10" length="10">
                   </div>
                 </div>
               </div>
@@ -124,7 +132,7 @@
                 Jobs by Salary
               </h1>
               <p>
-                By Ariana Deboer, Rija Rasmoor, Shannon McGuire, and Yera Park
+                By Ariana DeBoer, Rija Rasmoor, Shannon McGuire, and Yera Park
               </p>
               <p>
                 Awesome project begins!
@@ -147,16 +155,16 @@
         <div class="col-md-6">
           <div class="dish_container">
             <div class="box">
-              <img src="datadonut.png" alt="">
+              <img src="datadonutsimple.png" alt="">
             </div>
             <div class="box">
               <img src="salarybar.png" alt="">
             </div>
             <div class="box">
-              <img src="dish.jpg" alt="">
+              <img src="heatmap.png" alt="">
             </div>
             <div class="box">
-              <img src="dish.jpg" alt="">
+              <img src="exp_boxplot.png" alt="">
             </div>
           </div>
         </div>
@@ -209,7 +217,7 @@
         </div>
         <div class="col-md-6 px-0">
           <div class="img-box">
-            <div class="html"><embed type='text/html' src="datadonut.html" width="625" height="625"></div><div class="content">
+            <div class="html"><embed type='text/html' src="datadonutsmall.html" width="625" height="625"></div><div class="content">
           </div>
         </div>
       </div>
@@ -229,7 +237,10 @@
                 <hr>
               </div>
               <p>
-               Right here in the data science department!
+                Unsurprisingly, many of the top data jobs are leadership positions, such as managers and directors. The rest are all positions that require high levels of experience. The top paying job, AI Architecture, is an emerging field with an average salary of $250k. The position’s high pay is due to its requirement of experience in multiple complex areas including machine learning and database management.
+
+                Only job titles with at least 10 records are included in the graph. 
+               
               </p>
             </div>
           </div>
@@ -242,7 +253,86 @@
       </div>
     </section>
 
-  <!-- end about section -->
+  <!-- end Graph 2 section -->
+
+  <!-- Graph 3 section -->
+  <section class="Graph_3">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-5 offset-md-1">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                Where Are <br>
+                the Remote Jobs?
+              </h2>
+              <hr>
+            </div>
+            <p>
+              Heatmap Descriptions
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 px-0">
+          <div class="img-box">
+            <img src="heatmap.png" width="600" length="600">
+          </div>        
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- end Graph 3 section -->
+
+
+
+<!-- Graph 4 section -->
+<section class="Graph_4">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5 offset-md-1">
+        <div class="detail-box">
+          <div class="heading_container">
+            <h2>
+              With Great Salary Comes... <br>
+              Great Responsibility
+            </h2>
+            <hr>
+          </div>
+          <p>
+            Heatmap Descriptions
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 px-0">
+        <div class="img-box">
+          <img src="exp_boxplot.png" width="600" length="600">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- end Graph 4 section -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- hot section -->
 
@@ -517,59 +607,22 @@
 
   <!-- end contact section -->
 
-  <!-- subscribe section -->
-
-  <section class="subscribe_section">
-    <div class="container">
-      <form action="">
-        <div class="row">
-          <div class="col-lg-3 col-md-4">
-            <label for="subEmail">
-              Our Newsletter
-            </label>
-          </div>
-          <div class="col-lg-9 col-md-8">
-            <div class="box">
-              <input type="email" placeholder="Enter your email" id="subEmail">
-              <button>
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- end subscribe section -->
-
   <!-- footer section -->
   <section class="container-fluid footer_section">
     <div class="social_container">
       <h4>
-        Follow on
+        Thank You for Scrolling!
       </h4>
-      <div class="social-box">
-        <a href="">
-          <img src="images/fb.png" alt="">
-        </a>
-        <a href="">
-          <img src="images/twitter.png" alt="">
-        </a>
-        <a href="">
-          <img src="images/linkedin.png" alt="">
-        </a>
-        <a href="">
-          <img src="images/youtube.png" alt="">
-        </a>
       </div>
     </div>
     <p>
       &copy; 2019 All Rights Reserved. Design by
-      <a href="https://html.design/">Free Html Templates, </a>
-      <a href="https://www.flaticon.com/free-icons/computer" title="computer icons">Computer icons created by monkik - Flaticon</a>
-      <a href="https://www.flaticon.com/free-icons/computer" title="computer icons">Computer icons created by Uniconlabs - Flaticon</a>
-      <a href="https://www.flaticon.com/free-icons/data-analytics" title="data analytics icons">Data analytics icons created by vectorspoint - Flaticon</a>
+      <a href="https://html.design/">Free Html Templates</a>
+    </p>
+    <p>
+      <br><a href="https://www.flaticon.com/free-icons/computer" title="computer icons">Computer icons created by monkik - Flaticon</a> <br>
+      <a href="https://www.flaticon.com/free-icons/computer" title="computer icons">Computer icons created by Uniconlabs - Flaticon</a> <br>
+      <a href="https://www.flaticon.com/free-icons/data-analytics" title="data analytics icons">Data analytics icons created by vectorspoint - Flaticon</a> <br>
       <a href="https://www.flaticon.com/free-icons/money" title="money icons">Money icons created by Freepik - Flaticon</a>
     </p>
   </section>
