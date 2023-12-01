@@ -433,6 +433,14 @@ a:focus {
           transform: translateY(15px);
 }
 
+.center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+}
+
 .slider_section .img-box img {
   width: 100%;
   max-height: 100%;
