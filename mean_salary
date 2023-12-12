@@ -26,23 +26,54 @@ salary_over_ten_graph.at[91, 'Job Title'] = 'Machine Learning Engineer'
 
 salary_over_ten_graph
 
+
+
 maroon = '#fb8072'
 darkgrey = '#A9A9A9'
 
 fig = px.bar(salary_over_ten_graph, x="Mean Salary (USD)", y="Job Title", orientation='h',
              hover_data=["Job Count"],
-             height=400,
-             title='The 8 Highest Paying Jobs in Data Science', color = 'Job Title',
+             height = 400, width = 800,
+             title ='Where are the Big Bucks?', color = 'Job Title',
              color_discrete_map = {'AI Architect': maroon, 'Director of Data Science': maroon,
                                    'Head of Data': maroon, 'Data Infrastructure Engineer': maroon,	
                                     'Data Science Manager': maroon,	'Principal Data Scientist': maroon,	
                                    'Machine Learning Engineer': maroon, 'Applied Scientist': maroon, 
                                     'Average of All Data Science Jobs': darkgrey})
-fig.update_layout(showlegend=False,  title={'text': 'Where are the Big Bucks?',
-                                           'x': 0.5, 'y': 0.83, 'xanchor': 'center', 'yanchor': 'top'},
+fig.update_layout(showlegend=False, 
                   font=dict(size=16, color='#555555', family='Arial'), plot_bgcolor = 'white')
 fig.update_yaxes(title='')
 
-#fig.write_image("salarybar.png")
-#fig.write_html("salarybar.html")
+fig.write_image("salarybar.png")
+fig.write_html("salarybar.html")
+fig.show()
+
+
+## version w/out labels
+
+maroon = '#fb8072'
+darkgrey = '#A9A9A9'
+
+
+fig = px.bar(salary_over_ten_graph, x="Mean Salary (USD)", y="Job Title", orientation='h',
+             hover_data=["Job Count"],
+             height=400,
+             color='Job Title',
+             color_discrete_map={'AI Architect': maroon, 'Director of Data Science': maroon,
+                                 'Head of Data': maroon, 'Data Infrastructure Engineer': maroon,
+                                 'Data Science Manager': maroon, 'Principal Data Scientist': maroon,
+                                 'Machine Learning Engineer': maroon, 'Applied Scientist': maroon,
+                                 'Average of All Data Science Jobs': darkgrey})
+
+fig.update_layout(
+    showlegend=False,
+    font=dict(size=16, color='#555555', family='Arial'),
+    plot_bgcolor='white'
+)
+
+fig.update_xaxes(tickvals=[], ticktext=[])
+fig.update_yaxes(tickvals=[], ticktext=[], title='')
+fig.update_layout(title=None)  # This line removes the title
+
+fig.write_image("salarybarsimple.png")
 fig.show()

@@ -21,8 +21,10 @@ salary_stats_df.columns = ['Job Title', 'Mean Salary', 'Job Count']
 # Sort the DataFrame by 'Job_Count' in descending order
 mean_salary_df = salary_stats_df.sort_values(by='Job Count', ascending=False)
 
-# Round the salary to two decimals
-mean_salary_df['Mean Salary'] = mean_salary_df['Mean Salary'].round(-3)
+# Round the salary, replace w/ k
+mean_salary_df['Mean Salary'] = mean_salary_df['Mean Salary'].round(-3).astype(str)
+mean_salary_df['Mean Salary'] = mean_salary_df['Mean Salary'].apply(lambda x: x[0:3] + 'k')
+
 
 index_to_move = 0  
 row_to_move = mean_salary_df.iloc[[index_to_move]]
@@ -44,7 +46,41 @@ colormap = {'Data Engineer':'#fb8072',
             'Data Scientist':'#bebada',
             'Data Analyst':'#ffed6f',
             'Machine Learning Engineer':'#8dd3c7',
-            'Other (includes 119 job titles)':'lightgrey'}
+            'Other (includes 119 job titles)':'#A9A9A9'}
+fig = px.pie(mean_salary_df, values = mean_salary_df['Job Count'], names = mean_salary_df['Job Title'], hole = 0.5, 
+             color = mean_salary_df['Job Title'], color_discrete_map = colormap, hover_data = ['Mean Salary'], 
+             #labels={'Job Title':'Job Title', 'count':'Salary'}, 
+             custom_data = ['Mean Salary'], width = 600, height = 600,
+             category_orders = {'Job Title':['Data Engineer', 'Data Scientist', 'Data Analyst', 'Machine Learning Engineer', 'Other']},
+             )
+#value = mean_salary_df['Job Count'], label = mean_salary_df['Job Title'], customdata=mean_salary_df['Mean Salary']
+
+# Increase the size of label text
+fig.update_traces(textfont_size=14)  
+
+# Increase the font size of hover labels
+fig.update_traces(hoverinfo='label+percent', hoverlabel=dict(font_size=16))
+
+centertext = "Most Common <br> Data Science <br> Positions"
+fig.update_layout(
+    annotations=[dict(text=centertext, x=0.5, y=0.5, font_size=16, showarrow=False)])
+
+# Update Traces: used source https://stackoverflow.com/questions/60158618/plotly-how-to-add-elements-to-hover-data-using-plotly-express-piechart
+fig.update_traces(text = mean_salary_df['Job Title'], textposition='outside',
+                 hovertemplate = "Job Title: %{label} <br>Job Count: %{value} </br>Mean Salary: $%{customdata[0][0]}")
+fig.update_layout(showlegend = False)
+fig.write_image("datadonut.png")
+fig.write_html("datadonutsmall.html")
+fig.show()
+
+
+## Version w/out labels
+
+colormap = {'Data Engineer':'#fb8072',
+            'Data Scientist':'#bebada',
+            'Data Analyst':'#ffed6f',
+            'Machine Learning Engineer':'#8dd3c7',
+            'Other (includes 119 job titles)':'#A9A9A9'}
 fig = px.pie(mean_salary_df, values = mean_salary_df['Job Count'], names = mean_salary_df['Job Title'], hole = 0.5, 
              color = mean_salary_df['Job Title'], color_discrete_map = colormap, hover_data = ['Mean Salary'], 
              #labels={'Job Title':'Job Title', 'count':'Salary'}, 
@@ -54,19 +90,19 @@ fig = px.pie(mean_salary_df, values = mean_salary_df['Job Count'], names = mean_
 #value = mean_salary_df['Job Count'], label = mean_salary_df['Job Title'], customdata=mean_salary_df['Mean Salary']
 
 # Increase the size of label text
-fig.update_traces(textfont_size=16)  
+fig.update_traces(textfont_size=14)  
 
 # Increase the font size of hover labels
 fig.update_traces(hoverinfo='label+percent', hoverlabel=dict(font_size=16))
 
 centertext = "Most Common <br> Data Science <br> Positions"
 fig.update_layout(
-    annotations=[dict(text=centertext, x=0.5, y=0.5, font_size=18, showarrow=False)])
+    annotations=[dict(text=centertext, x=0.5, y=0.5, font_size=16, showarrow=False)])
 
 # Update Traces: used source https://stackoverflow.com/questions/60158618/plotly-how-to-add-elements-to-hover-data-using-plotly-express-piechart
-fig.update_traces(text = mean_salary_df['Job Title'], textposition='outside',
+fig.update_traces(#text = mean_salary_df['Job Title'], textposition='outside',
                  hovertemplate = "Job Title: %{label} <br>Job Count: %{value} </br>Mean Salary: $%{customdata} Annual Salary")
 fig.update_layout(showlegend = False)
-#fig.write_image("datadonut.png")
-#fig.write_html("datadonut.html")
+fig.write_image("datadonut.png")
+fig.write_html("datadonutsimple.html")
 fig.show()
